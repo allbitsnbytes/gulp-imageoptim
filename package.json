@@ -1,0 +1,17 @@
+{
+  "name": "image-optimize",
+  "version": "0.1.0",
+  "description": "Image optimization module utilizing ImageOptim CLI",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "node",
+    "imageopim",
+    "image",
+    "compression"
+  ],
+  "author": "Maxwell Berkel",
+  "license": "MIT"
+}
