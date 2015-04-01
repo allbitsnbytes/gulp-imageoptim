@@ -13,5 +13,11 @@
     "compression"
   ],
   "author": "Maxwell Berkel",
-  "license": "MIT"
+  "license": {
+	"type": "MIT",
+	"url": "https://github.com/allbitsnbytes/image_optimizer/blob/master/LICENSE-MIT"
+  },
+  "devDependencies": {
+    "mocha": "~2.2.1"
+  }
 }
