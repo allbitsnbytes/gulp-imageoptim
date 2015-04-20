@@ -45,7 +45,6 @@
     "lodash": "~3.7.0",
     "imageoptim": "~0.3.3",
     "chalk": "~1.0.0",
-    "pretty-bytes": "~1.0.4",
-    "shelljs": "~0.4.0"
+    "pretty-bytes": "~1.0.4"
   }
 }
