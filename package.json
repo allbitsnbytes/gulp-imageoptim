@@ -1,10 +1,32 @@
 {
-  "name": "image-optimize",
+  "name": "gulp-imageotim",
   "version": "0.1.0",
-  "description": "Image optimization module utilizing ImageOptim CLI",
+  "description": "Gulp plugin to optimize images using imageoptim.",
+  "author": {
+    "name": "Maxwell Berkel",
+    "email": "maxwell@allbitsnbytes.com",
+    "url": "http://allbitsnbytes.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/allbitsnbytes/gulp_imageotim"
+  },
+  "bugs": {
+    "url": "https://github.com/allbitsnbytes/gulp_imageotim/issues"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/allbitsnbytes/gulp_imageotim/blob/LICENSE-MIT"
+  },
+  "engines": {
+    "node": ">= 0.10.25"
+  },
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec"
   },
   "keywords": [
     "node",
@@ -12,12 +34,14 @@
     "image",
     "compression"
   ],
-  "author": "Maxwell Berkel",
-  "license": {
-	"type": "MIT",
-	"url": "https://github.com/allbitsnbytes/image_optimizer/blob/master/LICENSE-MIT"
-  },
   "devDependencies": {
     "mocha": "~2.2.1"
+  },
+  "dependencies": {
+    "chai": "~2.2.0",
+    "mocha": "~2.2.4",
+    "mocha-jshint": "~2.1.1",
+    "through2": "~0.6.5",
+    "gulp-util": "~3.0.4"
   }
 }
