@@ -2,10 +2,14 @@
  * Gulp plugin to optimize images using imageoptim.
  */
 
-var chalk		= require('chalk');
-var imageoptim	= require('imageoptim');
-var through		= require('through2');
- 
+var _				= require('lodash');
+var chalk			= require('chalk');
+var imageoptim		= require('imageoptim');
+var path			= require('path');
+var prettyBytes		= require('pretty-bytes');
+var shell			= require('shelljs');
+var through			= require('through2');
+
 
 /**
  * Plugin
@@ -25,8 +29,39 @@ function optimizer() {
 	config.status = true;
 
 	/**
-	 * Diplay status on screen
+	 * Where to create temporary directory for image compression
+	 * @type {String}
 	 */
+	config.tmp = '.';
+
+
+	/**
+	 * Display status for optimized images
+	 *
+	 * @private
+	 * @param {String[]} files Files that were optimized
+	 * @return {String} Formatted report
+	 */
+	var report = function(files) {
+		var msgs = [];
+
+		if (!_.isArray(files)) {
+			files = [files];
+		}
+
+		files.forEach(function(file) {
+			if (file.exitCode === imageoptim.SUCCESS) {
+				msgs.push(chalk.green(file.name + ' optimized, saved ' + prettyBytes(file.savedBytes) + ' bytes'));
+			} else if (file.exitCode === imageoptim.CANT_COMPRESS) {
+				msgs.push(chalk.yellow(file.name + ' cannot optimize'));
+			} else if (file.exitCode === imageoptim.DOESNT_EXIT) {
+				msgs.push(chalk.red(file.name + ' does not exist'));
+			}
+		});
+
+		return msgs.join('\n');
+	}
+
 
 	/**
 	 * Public functions
@@ -47,20 +82,10 @@ function optimizer() {
 			return through.obj(function(file, enc, cb) {
 
 				// Optimize image
-				imageoptim.optim(file.path)
+				imageoptim.optim([file.path])
 					.then(function(result) {
 						if (curConfig.status) {
-							var msg = '';
-
-							if (result.exitCode === imageoptim.SUCCESS) {
-								msg = chalk.green('%s optimized\t\t\t%s', result.name, result.savedBytes);
-							} else if (result.exitCode === imageoptim.CANT_COMPRESS) {
-								msg = chalk.yellow('%s cannot optimize', result.name);
-							} else if (result.exitCode === imageoptim.DOESNT_EXIT) {
-								msg = chalk.red('%s does not exist');
-							}
-
-							console.log(msg);
+							console.log(report(result));
 						}
 
 						cb(null, file);
