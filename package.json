@@ -42,7 +42,8 @@
     "mocha": "~2.2.4",
     "mocha-jshint": "~2.1.1",
     "through2": "~0.6.5",
-    "gulp-util": "~3.0.4",
-    "lodash": "~3.7.0"
+    "lodash": "~3.7.0",
+    "imageoptim": "~0.3.3",
+    "chalk": "~1.0.0"
   }
 }
