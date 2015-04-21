@@ -1,5 +1,5 @@
 {
-  "name": "gulp-imageotim",
+  "name": "gulp-imageoptim",
   "version": "0.1.0",
   "description": "Gulp plugin to optimize images using imageoptim.",
   "author": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/allbitsnbytes/gulp-imageotim"
+    "url": "https://github.com/allbitsnbytes/gulp-imageoptim"
   },
   "bugs": {
-    "url": "https://github.com/allbitsnbytes/gulp-imageotim/issues"
+    "url": "https://github.com/allbitsnbytes/gulp-imageoptim/issues"
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/allbitsnbytes/gulp-imageotim/blob/LICENSE-MIT"
+    "url": "https://github.com/allbitsnbytes/gulp-imageoptim/blob/LICENSE-MIT"
   },
   "engines": {
     "node": ">= 0.10.25"
@@ -30,7 +30,7 @@
   },
   "keywords": [
     "node",
-    "imageopim",
+    "imageoptim",
     "image",
     "compression"
   ],
