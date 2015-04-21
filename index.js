@@ -7,7 +7,6 @@ var chalk			= require('chalk');
 var exec			= require('child_process').exec;
 var fs				= require('fs');
 var path			= require('path');
-var prettyBytes		= require('pretty-bytes');
 var through			= require('through2');
 
 
