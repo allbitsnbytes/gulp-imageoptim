@@ -1,7 +1,7 @@
 {
   "name": "gulp-imageoptim",
-  "version": "0.1.0",
-  "description": "Gulp plugin to optimize images using imageoptim.",
+  "version": "0.2.0",
+  "description": "Gulp plugin to optimize images using imageoptim-cli.",
   "author": {
     "name": "Maxwell Berkel",
     "email": "maxwell@allbitsnbytes.com",
@@ -30,7 +30,7 @@
   },
   "keywords": [
     "node",
-    "imageoptim",
+    "imageoptim-cli",
     "image",
     "compression"
   ],
@@ -40,10 +40,10 @@
     "mocha-jshint": "^2.1.1"
   },
   "dependencies": {
-    "through2": "~0.6.5",
-    "lodash": "~3.7.0",
-    "imageoptim": "~0.3.3",
     "chalk": "~1.0.0",
-    "pretty-bytes": "~1.0.4"
+    "imageoptim-cli": "^1.11.6",
+    "lodash": "~3.7.0",
+    "pretty-bytes": "~1.0.4",
+    "through2": "~0.6.5"
   }
 }
