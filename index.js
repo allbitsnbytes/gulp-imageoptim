@@ -4,8 +4,8 @@
 
 var _				= require('lodash');
 var chalk			= require('chalk');
+var exec			= require('child_process').exec;
 var fs				= require('fs');
-var imageoptim		= require('imageoptim');
 var path			= require('path');
 var prettyBytes		= require('pretty-bytes');
 var through			= require('through2');
@@ -24,9 +24,15 @@ function optimizer() {
 
 	/**
 	 * Whether to display optimization status or not
-	 * @type {boolean}
+	 * @type {Boolean}
 	 */
 	config.status = true;
+
+	/**
+	 * Prefix to use for temporary file name
+	 * @type {String}
+	 */
+	config.prefix = 'imgOptim-';
 
 
 	/**
@@ -36,10 +42,11 @@ function optimizer() {
 
 		/**
 		 * Optimize images
-		 * @param {object} options Options to customize optimization
-		 * @return {stream}
+		 * @param {Object} options Options to customize optimization
+		 * @return {Stream}
 		 */
 		optimize: function(options) {
+			var imageOptim = 'sh ./node_modules/gulp-imageoptim/node_modules/.bin/imageOptim -a -c -q';
 			var curConfig = _.clone(config);
 
 			// Set config optiosn to use for this current optimization session
@@ -55,36 +62,36 @@ function optimizer() {
 	 			}
 
 				// Create temporary file to preserve integrity of original file
-				file.optimizedImagePath = path.join(path.dirname(file.path), 'imageOptim-' + path.basename(file.path));
+				file.optimizedImagePath = path.join(path.dirname(file.path), curConfig.prefix + path.basename(file.path));
 
 				// Copy file contents to temporary file
 				fs.writeFileSync(file.optimizedImagePath, fs.readFileSync(file.path), {encoding: enc});
 
-				// Optimize image
-				imageoptim.optim([file.optimizedImagePath])
-					.then(function(res) {
-						var fileInfo = res[0];
+				exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout, stderr) {
+					if (error === null) {
+						var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
+						var status = '';
 
-						// Update file contents with optimized contents if file was optimized
-						if (fileInfo.exitCode === imageoptim.SUCCESS) {
+						if (savings > 0) {
 							file.contents = new Buffer(fs.readFileSync(file.optimizedImagePath));
-						}					
-
-						if (curConfig.status) {
-							if (fileInfo.exitCode === imageoptim.SUCCESS) {
-								console.log(chalk.green('Success, saved %s : %s'), prettyBytes(fileInfo.savedBytes), fileInfo.name);
-							} else if (fileInfo.exitCode === imageoptim.CANT_COMPRESS) {
-								console.log(chalk.yellow('Failed: %s'), fileInfo.name);
-							} else if (fileInfo.exitCode === imageoptim.DOESNT_EXIT) {
-								console.log(chalk.red('Not found: '), fileInfo.name);
-							}
+							
+							status = chalk.green(file.path) + '\n' + chalk.gray(stdout.replace('TOTAL was', 'Optimized.  Was'));
+						} else {
+							status = chalk.yellow(file.path) + '\n' + chalk.gray('Not optimized.  Saving: 0%\n');
 						}
+					} else {
+						status = chalk.red(error);
+					}
 
-						// Remove temporary file and tempfile object reference
-						fs.unlinkSync(file.optimizedImagePath);
+					if (curConfig.status) {
+						console.log(status);
+					}
 
-						cb(null, file);
-					});
+					// Remove temporary file and tempfile path reference
+					fs.unlinkSync(file.optimizedImagePath);
+
+					cb(null, file);
+				});
 			});
 		}
 		
