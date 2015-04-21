@@ -35,12 +35,11 @@
     "compression"
   ],
   "devDependencies": {
-    "mocha": "~2.2.1"
+    "chai": "^2.2.0",
+    "mocha": "^2.2.4",
+    "mocha-jshint": "^2.1.1"
   },
   "dependencies": {
-    "chai": "~2.2.0",
-    "mocha": "~2.2.4",
-    "mocha-jshint": "~2.1.1",
     "through2": "~0.6.5",
     "lodash": "~3.7.0",
     "imageoptim": "~0.3.3",
