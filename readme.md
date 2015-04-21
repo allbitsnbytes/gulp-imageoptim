@@ -4,6 +4,7 @@ Gulp plugin to optimize images using ImageOptim-CLI.
 
 > Please note this plugin uses ImageOptim-CLI.  Unfortunately currently there is no support for Windows and Linux.
 
+
 So why ImageOptim-CLI?  My personal experience and [current benchmarks](http://jamiemason.github.io/ImageOptim-CLI/) suggest that ImageOptim and ImageAlpha currently outperform alternatives over lossless and lossy optimizations.
 
 
