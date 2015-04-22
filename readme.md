@@ -7,15 +7,11 @@ Gulp plugin to optimize images using ImageOptim-CLI.
 
 So why ImageOptim-CLI?  My personal experience and [current benchmarks](http://jamiemason.github.io/ImageOptim-CLI/) suggest that ImageOptim and ImageAlpha currently outperform alternatives over lossless and lossy optimizations.
 
-[![NPM](https://nodei.co/npm/gulp-imageoptim.png?mini=true)](https://nodei.co/npm/gulp-imageoptim/)
-
 
 ## Install
 
-```
-npm install gulp-imageoptim
-```
-
+[![NPM](https://nodei.co/npm/gulp-imageoptim.png?mini=true)](https://nodei.co/npm/gulp-imageoptim/)
+  
 
 ## Usage
 
