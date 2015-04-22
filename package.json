@@ -16,7 +16,7 @@
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/allbitsnbytes/gulp-imageoptim/blob/LICENSE-MIT"
+    "url": "https://github.com/allbitsnbytes/gulp-imageoptim/blob/LICENSE.md"
   },
   "engines": {
     "node": ">= 0.10.25"
