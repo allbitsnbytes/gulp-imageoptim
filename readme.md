@@ -28,6 +28,32 @@ gulp.task('images', function() {
 ```
 
 
+## Methods
+
+### .optimize(options)
+
+Optimize images using ImageOptim-CLI
+
+
+## Options
+
+### status
+
+Set to false to disable optimize summary in console.
+
+Type: Boolean  
+Default: ` true `  
+
+
+### prefix
+
+Prefix to use for temp file for image being optimized.
+
+Type: String
+Default: ` imgOptim- `
+
+
+
 ## FAQS
 
 #### Does Gulp-ImageOptim use JPEGmini?
