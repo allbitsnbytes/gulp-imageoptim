@@ -6,6 +6,7 @@ var _				= require('lodash');
 var chalk			= require('chalk');
 var exec			= require('child_process').exec;
 var fs				= require('fs');
+var md5				= require('blueimp-md5');
 var path			= require('path');
 var through			= require('through2');
 
@@ -61,7 +62,7 @@ function optimizer() {
 	 			}
 
 				// Create temporary file to preserve integrity of original file
-				file.optimizedImagePath = path.join(path.dirname(file.path), curConfig.prefix + path.basename(file.path));
+				file.optimizedImagePath = path.join(path.dirname(file.path), md5(file.path) + path.extname(file.path));
 
 				// Copy file contents to temporary file
 				fs.writeFileSync(file.optimizedImagePath, fs.readFileSync(file.path), {encoding: enc});
