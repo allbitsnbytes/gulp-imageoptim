@@ -6,7 +6,7 @@ var _				= require('lodash');
 var chalk			= require('chalk');
 var exec			= require('child_process').exec;
 var fs				= require('fs');
-var md5				= require('blueimp-md5');
+var md5				= require('blueimp-md5').md5;
 var path			= require('path');
 var through			= require('through2');
 
@@ -74,7 +74,7 @@ function optimizer() {
 
 						if (savings > 0) {
 							file.contents = new Buffer(fs.readFileSync(file.optimizedImagePath));
-							
+
 							status = chalk.green(file.path) + '\n' + chalk.gray(stdout.replace('TOTAL was', 'Optimized.  Was'));
 						} else {
 							status = chalk.yellow(file.path) + '\n' + chalk.gray('Not optimized.  Saving: 0%\n');
@@ -94,7 +94,7 @@ function optimizer() {
 				});
 			});
 		}
-		
+
 	};
 }
 
