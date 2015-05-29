@@ -40,6 +40,7 @@
     "mocha-jshint": "^2.1.1"
   },
   "dependencies": {
+    "blueimp-md5": "^1.1.0",
     "chalk": "~1.0.0",
     "imageoptim-cli": "^1.11.6",
     "lodash": "~3.7.0",
