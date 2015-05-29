@@ -67,10 +67,11 @@ function optimizer() {
 				// Copy file contents to temporary file
 				fs.writeFileSync(file.optimizedImagePath, fs.readFileSync(file.path), {encoding: enc});
 
-				exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout, stderr) {
+				exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout) {
+					var status = '';
+					
 					if (error === null) {
 						var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
-						var status = '';
 
 						if (savings > 0) {
 							file.contents = new Buffer(fs.readFileSync(file.optimizedImagePath));
