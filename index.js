@@ -46,7 +46,8 @@ function optimizer() {
 		 * @return {Stream}
 		 */
 		optimize: function(options) {
-			var imageOptim = 'sh ./node_modules/gulp-imageoptim/node_modules/.bin/imageOptim -a -c -q';
+			var imageOptimPath = require.resolve('imageoptim-cli');
+			var imageOptim = 'sh ' + imageOptimPath + ' -a -c -q';
 			var curConfig = _.clone(config);
 
 			// Set config optiosn to use for this current optimization session
@@ -69,7 +70,7 @@ function optimizer() {
 
 				exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout) {
 					var status = '';
-					
+
 					if (error === null) {
 						var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
 
@@ -101,6 +102,6 @@ function optimizer() {
 
 
 /**
- * Export 
+ * Export
  */
 module.exports 	= optimizer();
