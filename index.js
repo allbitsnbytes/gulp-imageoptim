@@ -3,12 +3,13 @@
  */
 
 var _				= require('lodash');
-var chalk			= require('chalk');
-var exec			= require('child_process').exec;
-var fs				= require('fs');
-var md5				= require('blueimp-md5').md5;
-var path			= require('path');
-var through			= require('through2');
+var Chalk			= require('chalk');
+var Exec			= require('child_process').exec;
+var Fs				= require('fs');
+var Md5				= require('blueimp-md5').md5;
+var Path			= require('path');
+var PluginError		= require('gulp-util').pluginError;
+var Through			= require('through2');
 
 
 /**
@@ -31,6 +32,7 @@ function optimizer() {
 	/**
 	 * Prefix to use for temporary file name
 	 * @type {String}
+	 * @deprecated
 	 */
 	config.prefix = 'imgOptim-';
 
@@ -45,51 +47,58 @@ function optimizer() {
 		 * @param {Object} options Options to customize optimization
 		 * @return {Stream}
 		 */
-		optimize: function(options) {
+		optimize: function(opt) {
 			var imageOptim = 'sh ./node_modules/gulp-imageoptim/node_modules/.bin/imageOptim -a -c -q';
-			var curConfig = _.clone(config);
+			var options = _.clone(config);
+			
+			opt = opt || {};
 
 			// Set config optiosn to use for this current optimization session
-			_.assign(curConfig, options);
+			_.assign(options, opt);
 
-			return through.obj(function(file, enc, cb) {
+			return Through.obj(function(file, enc, cb) {
 
 				// If file is null continue
 	 			if (file.isNull()) {
 	 				cb(null, file);
-
 	 				return;
 	 			}
+				 
+				if (file.isStream()) {
+					this.emit('error', new PluginError('gulp-imageoptim', 'Streaming not supported'));
+					cb(null, file);
+					return;
+				}
 
 				// Create temporary file to preserve integrity of original file
-				file.optimizedImagePath = path.join(path.dirname(file.path), md5(file.path) + path.extname(file.path));
+				file.optimizedImagePath = Path.join(Path.dirname(file.path), Md5(file.path) + Path.extname(file.path));
 
 				// Copy file contents to temporary file
-				fs.writeFileSync(file.optimizedImagePath, fs.readFileSync(file.path), {encoding: enc});
+				Fs.writeFileSync(file.optimizedImagePath, Fs.readFileSync(file.path), {encoding: enc});
 
-				exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout) {
+				Exec('find ' + file.optimizedImagePath + ' | ' + imageOptim + ' | grep TOTAL ', function(error, stdout) {
 					var status = '';
 					
 					if (error === null) {
 						var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
 
 						if (savings > 0) {
-							file.contents = new Buffer(fs.readFileSync(file.optimizedImagePath));
+							file.contents = new Buffer(Fs.readFileSync(file.optimizedImagePath));
 
-							status = chalk.green(file.path) + '\n' + chalk.gray(stdout.replace('TOTAL was', 'Optimized.  Was'));
+							status = Chalk.green(file.path) + '\n' + Chalk.gray(stdout.replace('TOTAL was', 'Optimized.  Was'));
 						} else {
-							status = chalk.yellow(file.path) + '\n' + chalk.gray('Not optimized.  Saving: 0%\n');
+							status = Chalk.yellow(file.path) + '\n' + Chalk.gray('Not optimized.  Saving: 0%\n');
 						}
 					} else {
-						status = chalk.red(error);
+						status = Chalk.red(error);
 					}
 
-					if (curConfig.status) {
+					if (options.status) {
 						console.log(status);
 					}
 
 					// Remove temporary file and tempfile path reference
-					fs.unlinkSync(file.optimizedImagePath);
+					Fs.unlinkSync(file.optimizedImagePath);
 
 					cb(null, file);
 				});
