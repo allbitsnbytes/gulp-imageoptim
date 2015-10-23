@@ -11,7 +11,7 @@ So why ImageOptim-CLI?  My personal experience and [current benchmarks](http://j
 ## Install
 
 [![NPM](https://nodei.co/npm/gulp-imageoptim.png?mini=true)](https://nodei.co/npm/gulp-imageoptim/)
-  
+
 
 ## Usage
 
@@ -41,16 +41,16 @@ Optimize images using ImageOptim-CLI
 
 Set to false to disable optimize summary in console.
 
-Type: Boolean  
-Default: ` true `  
+Type: Boolean
+Default: ` true `
 
 
 ### prefix
 
-Prefix to use for temp file for image being optimized.
+Batch size
 
-Type: String
-Default: ` imgOptim- `
+Type: Integer
+Default: ` 100 `
 
 
 
