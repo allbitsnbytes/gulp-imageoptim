@@ -1,6 +1,6 @@
 {
   "name": "gulp-imageoptim",
-  "version": "0.2.12",
+  "version": "0.3.0",
   "description": "Gulp plugin to optimize images using imageoptim-cli",
   "author": {
     "name": "Maxwell Berkel",
@@ -35,16 +35,15 @@
     "compression"
   ],
   "devDependencies": {
-    "chai": "^2.2.0",
+    "chai": "^3.3.0",
     "mocha": "^2.2.4",
     "mocha-jshint": "^2.1.1"
   },
   "dependencies": {
     "blueimp-md5": "^1.1.0",
-    "chalk": "~1.0.0",
-    "gulp-util": "^3.0.5",
+    "chalk": "~1.1.1",
     "imageoptim-cli": "^1.11.6",
-    "lodash": "~3.7.0",
-    "through2": "^0.6.5"
+    "lodash": "~3.10.1",
+    "through2": "^2.0.0"
   }
 }
