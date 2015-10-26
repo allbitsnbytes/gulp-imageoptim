@@ -45,7 +45,7 @@ Type: Boolean
 Default: ` true `
 
 
-### prefix
+### batchSize
 
 Batch size
 

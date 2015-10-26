@@ -29,13 +29,6 @@ function BatchOptimizer() {
 	config.status = true;
 
 	/**
-	 * Prefix to use for temporary file name
-	 * @type {String}
-	 * @deprecated
-	 */
-	config.prefix = 'imgOptim-';
-
-	/**
 	 * Batch size is the number of files to batch optimize
 	 * @type {Int}
 	 */
@@ -191,7 +184,7 @@ function BatchOptimizer() {
 						console.error(chalk.red('Batch ' + index + ': Errors') + '\n' + chalk.gray(result.msg));
 						break;
 				}
-				
+
 				index++;
 			}
 
