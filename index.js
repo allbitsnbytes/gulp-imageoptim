@@ -68,7 +68,7 @@ function BatchOptimizer() {
 		if (fs.lstatSync(dirPath).isDirectory()) {
 			files = fs.readdirSync(dirPath);
 
-			files.forEach(function(file, index) {
+			files.forEach(function(file) {
 				var curPath = path.join(dirPath, file);
 
 				if (fs.lstatSync(curPath).isDirectory()) {
@@ -80,7 +80,7 @@ function BatchOptimizer() {
 
 			fs.rmdirSync(dirPath);
 		}
-	}
+	};
 
 	/**
 	 * Batch optimize files and push
@@ -163,7 +163,7 @@ function BatchOptimizer() {
 		for (var i = 0, length = files.length; i < length; i++) {
 			stream.push(files[i]);
 		}
-	}
+	};
 
 	/**
 	 * Display batch results
@@ -189,7 +189,7 @@ function BatchOptimizer() {
 			}
 
 		});
-	}
+	};
 
 	/**
 	 * Public functions

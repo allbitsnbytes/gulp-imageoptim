@@ -26,7 +26,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --watch --reporter spec"
   },
   "keywords": [
     "node",
