@@ -26,7 +26,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --watch --reporter spec"
+    "test": "mocha --reporter spec"
   },
   "keywords": [
     "gulpplugin",
