@@ -29,6 +29,7 @@
     "test": "mocha --watch --reporter spec"
   },
   "keywords": [
+    "gulpplugin",
     "node",
     "imageoptim-cli",
     "image",
