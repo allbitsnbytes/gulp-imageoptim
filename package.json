@@ -1,6 +1,6 @@
 {
   "name": "gulp-imageoptim",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Gulp plugin to optimize images using imageoptim-cli",
   "author": {
     "name": "Maxwell Berkel",
@@ -26,9 +26,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --watch --reporter spec"
+    "test": "mocha --reporter spec"
   },
   "keywords": [
+    "gulpplugin",
     "node",
     "imageoptim-cli",
     "image",
