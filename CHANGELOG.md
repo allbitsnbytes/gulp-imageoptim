@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.3.4] - 2015-12-2
+### Misc
+- Added start and finished messages
+
 ## [0.3.3] - 2015-10-28
 ### Misc
 - Minor updates
