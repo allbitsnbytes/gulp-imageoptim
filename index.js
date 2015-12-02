@@ -207,6 +207,8 @@ function BatchOptimizer() {
 			// Set config optiosn to use for this current optimization session
 			_.assign(options, opts);
 
+			console.log(chalk.green.bgBlack('-- Starting Image Optimization --'));
+
 			return through.obj(function(file, enc, cb) {
 				stream = this;
 
@@ -232,6 +234,8 @@ function BatchOptimizer() {
 			},
 			function(cb) {
 				batchOptimize(batchFiles, options, function(files) {
+					console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
+
 					pushFiles(files);
 					batchFiles = [];
 					displayOptimizationResults();
