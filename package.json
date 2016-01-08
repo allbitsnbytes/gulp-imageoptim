@@ -41,8 +41,9 @@
     "mocha-jshint": "^2.1.1"
   },
   "dependencies": {
-    "blueimp-md5": "^1.1.0",
+    "blueimp-md5": "^1.1.1",
     "chalk": "~1.1.1",
+    "file-type": "^3.3.1",
     "imageoptim-cli": "^1.11.6",
     "lodash": "~3.10.1",
     "through2": "^2.0.0"

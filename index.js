@@ -102,7 +102,7 @@ function BatchOptimizer() {
 			var file = files[i];
 
 			file.batchFilePath = path.join(batchDir, md5(file.path) + path.extname(file.path));
-			fs.writeFileSync(file.batchFilePath, fs.readFileSync(file.path));
+            fs.writeFileSync(file.batchFilePath, file.contents);
 		}
 
 		// Optimize files
