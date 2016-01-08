@@ -10,7 +10,7 @@ So why ImageOptim-CLI?  My personal experience and [current benchmarks](http://j
 
 ## Install
 
-[![NPM](https://nodei.co/npm/gulp-imageoptim.png?mini=true)](https://nodei.co/npm/gulp-imageoptim/)
+[![NPM](https://nodei.co/npm/gulp-imageoptim.png?downloadRank=true)](https://nodei.co/npm/gulp-imageoptim/)
 
 
 ## Usage
