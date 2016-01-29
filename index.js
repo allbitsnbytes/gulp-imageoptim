@@ -181,7 +181,7 @@ function BatchOptimizer() {
 						break;
 
 					case 'error':
-						console.error(chalk.red('Batch ' + index + ': Errors') + '\n' + chalk.gray(result.msg));
+						console.log(chalk.red('Batch ' + index + ': Errors') + '\n' + chalk.gray(result.msg));
 						break;
 				}
 
@@ -234,11 +234,11 @@ function BatchOptimizer() {
 			},
 			function(cb) {
 				batchOptimize(batchFiles, options, function(files) {
-					console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
+					//console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
 
 					pushFiles(files);
 					batchFiles = [];
-					displayOptimizationResults();
+					// displayOptimizationResults();
 					cb();
 				});
 			});

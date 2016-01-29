@@ -36,9 +36,9 @@
     "compression"
   ],
   "devDependencies": {
-    "chai": "^3.3.0",
-    "mocha": "^2.2.4",
-    "mocha-jshint": "^2.1.1"
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "mocha-jshint": "^2.3.0"
   },
   "dependencies": {
     "blueimp-md5": "^1.1.1",
