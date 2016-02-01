@@ -1,6 +1,6 @@
 {
   "name": "gulp-imageoptim",
-  "version": "0.3.6",
+  "version": "1.0.0",
   "description": "Gulp plugin to optimize images using imageoptim-cli",
   "author": {
     "name": "Maxwell Berkel",
@@ -33,6 +33,7 @@
     "node",
     "imageoptim-cli",
     "image",
+	"jpegmini",
     "compression"
   ],
   "devDependencies": {

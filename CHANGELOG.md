@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.0.0] - Unreleased
+### Feature
+- Add support for JPEGMini
+
 ## [0.3.4] - 2015-12-2
 ### Misc
 - Added start and finished messages

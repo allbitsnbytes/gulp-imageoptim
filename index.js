@@ -35,6 +35,12 @@ function BatchOptimizer() {
 	config.batchSize = 100;
 
 	/**
+	 * Whether to use jpegmini or not
+	 * @type {Boolean}
+	 */
+	config.jpegmini = false;
+
+	/**
 	 * Array of files to batch optimize
 	 * @type {Array}
 	 */
@@ -50,7 +56,7 @@ function BatchOptimizer() {
 	 * CLI command to run imageoptim-cli
 	 * @type {String}
 	 */
-	var imageOptim = 'sh ' + require.resolve('imageoptim-cli') + ' -a -c -q -d';
+	var optimizeImages = 'bash scripts/optimize.bash ';
 
 	/**
 	 * Reference to stream
@@ -93,6 +99,7 @@ function BatchOptimizer() {
 			next(files);
 
 		var batchDir = md5(Date.now());
+		var scriptParams = path.normalize(batchDir) + ' ' + (options.jpegmini ? 'yes': '');
 
 		// Make batch directory
 		fs.mkdirSync(batchDir);
@@ -106,32 +113,32 @@ function BatchOptimizer() {
 		}
 
 		// Optimize files
-		exec(imageOptim + ' ' + path.normalize(batchDir) + ' | grep TOTAL ', function(error, stdout) {
+		exec(optimizeImages + scriptParams, function(error, stdout) {
 			var result = {};
 
 			if (error === null) {
-				var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
-				var msg = '';
+				// var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
+				// var msg = '';
 
-				if (savings > 0) {
+				// if (savings > 0) {
 
-					// Copy optimized file contents to original and remove file
-					for (var i = 0, length = files.length; i < length; i++) {
-						var file = files[i];
+				// 	// Copy optimized file contents to original and remove file
+				// 	for (var i = 0, length = files.length; i < length; i++) {
+				// 		var file = files[i];
 
 						file.contents = new Buffer(fs.readFileSync(file.batchFilePath));
-					}
+				// 	}
 
-					msg = stdout.replace('TOTAL was', 'Filesize total was');
-				} else {
-					msg = 'Saving: 0%\n';
-				}
+				// 	msg = stdout.replace('TOTAL was', 'Filesize total was');
+				// } else {
+				// 	msg = 'Saving: 0%\n';
+				// }
 
 				result = {
 					type: 'success',
 					files: files.length,
-					savings: savings,
-					msg: msg
+					// savings: savings,
+					msg: stdout
 				};
 			} else {
 				result = {
@@ -176,7 +183,7 @@ function BatchOptimizer() {
 				switch (result.type) {
 					case 'success':
 						status = 'Batch ' + index + ': ' + result.files + ' files';
-						status = (result.savings > 0) ? chalk.green(status) : chalk.yellow(status);
+						// status = (result.savings > 0) ? chalk.green(status) : chalk.yellow(status);
 						console.log(status + '\n' + chalk.gray(result.msg));
 						break;
 
