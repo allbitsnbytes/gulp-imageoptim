@@ -37,6 +37,11 @@ function BatchOptimizer() {
 	/**
 	 * Whether to use jpegmini or not
 	 * @type {Boolean}
+	 *
+	 * @note
+	 * Before enabling this feature complete the following steps
+	 * 1. Install JPEGmini
+	 * 2. Open JPEGmini then add Terminal.app (or iTerm.app) to 'support for assistive devices' whitelist
 	 */
 	config.jpegmini = false;
 
@@ -45,18 +50,6 @@ function BatchOptimizer() {
 	 * @type {Array}
 	 */
 	var batchFiles = [];
-
-	/**
-	 * Batch results
-	 * @type {Array}
-	 */
-	var batchResults = [];
-
-	/**
-	 * CLI command to run imageoptim-cli
-	 * @type {String}
-	 */
-	var optimizeImages = 'bash scripts/optimize.bash ';
 
 	/**
 	 * Reference to stream
@@ -99,7 +92,8 @@ function BatchOptimizer() {
 			next(files);
 
 		var batchDir = md5(Date.now());
-		var scriptParams = path.normalize(batchDir) + ' ' + (options.jpegmini ? 'yes': '');
+		var jpegminiEnabled = options.jpegmini ? '--jpegmini' : '';
+		var scriptParams = path.normalize(batchDir) + ' ' + jpegminiEnabled;
 
 		// Make batch directory
 		fs.mkdirSync(batchDir);
@@ -113,37 +107,38 @@ function BatchOptimizer() {
 		}
 
 		// Optimize files
-		exec(optimizeImages + scriptParams, function(error, stdout) {
+		exec('bash node_modules/gulp-imageoptim/scripts/optimize.bash ' + scriptParams, function(error, stdout) {
 			var result = {};
 
 			if (error === null) {
-				// var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
-				// var msg = '';
+				var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
+				var msg = '';
 
-				// if (savings > 0) {
+				if (savings > 0) {
 
-				// 	// Copy optimized file contents to original and remove file
-				// 	for (var i = 0, length = files.length; i < length; i++) {
-				// 		var file = files[i];
+					// Copy optimized file contents to original and remove file
+					for (var i = 0, length = files.length; i < length; i++) {
+						var file = files[i];
 
 						file.contents = new Buffer(fs.readFileSync(file.batchFilePath));
-				// 	}
+						stdout = stdout.replace(file.batchFilePath, path.basename(file.path));
+					}
 
-				// 	msg = stdout.replace('TOTAL was', 'Filesize total was');
-				// } else {
-				// 	msg = 'Saving: 0%\n';
-				// }
+					msg = stdout.replace('TOTAL was', 'Filesize total was');
+				} else {
+					msg = 'Saving: 0%\n';
+				}
 
 				result = {
 					type: 'success',
 					files: files.length,
-					// savings: savings,
-					msg: stdout
+					savings: savings,
+					msg: msg
 				};
 			} else {
 				result = {
 					type: 'error',
-					msg: error
+					msg: stdout
 				};
 			}
 
@@ -152,7 +147,7 @@ function BatchOptimizer() {
 
 			// Display optmization result status?
 			if (options.status) {
-				batchResults.push(result);
+				displayOptimizationResults(result);
 			}
 
 			next(files);
@@ -174,28 +169,20 @@ function BatchOptimizer() {
 
 	/**
 	 * Display batch results
+	 * @param {Object} result The result to display from batch optimization
 	 */
-	var displayOptimizationResults = function() {
-		var index = 1;
+	var displayOptimizationResults = function(result) {
+		if (typeof result === 'object') {
+			switch (result.type) {
+				case 'success':
+					console.log('Batch of ' + result.files + ' files optimized:\n' + chalk.gray(result.msg));
+					break;
 
-		batchResults.forEach(function(result) {
-			if (result.type) {
-				switch (result.type) {
-					case 'success':
-						status = 'Batch ' + index + ': ' + result.files + ' files';
-						// status = (result.savings > 0) ? chalk.green(status) : chalk.yellow(status);
-						console.log(status + '\n' + chalk.gray(result.msg));
-						break;
-
-					case 'error':
-						console.log(chalk.red('Batch ' + index + ': Errors') + '\n' + chalk.gray(result.msg));
-						break;
-				}
-
-				index++;
+				case 'error':
+					console.log(chalk.red(result.msg));
+					break;
 			}
-
-		});
+		}
 	};
 
 	/**
@@ -214,7 +201,7 @@ function BatchOptimizer() {
 			// Set config optiosn to use for this current optimization session
 			_.assign(options, opts);
 
-			console.log(chalk.green.bgBlack('-- Starting Image Optimization --'));
+			console.log(chalk.yellow.bgBlack('-- Starting Image Optimization --'));
 
 			return through.obj(function(file, enc, cb) {
 				stream = this;
@@ -241,11 +228,9 @@ function BatchOptimizer() {
 			},
 			function(cb) {
 				batchOptimize(batchFiles, options, function(files) {
-					//console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
-
 					pushFiles(files);
+					console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
 					batchFiles = [];
-					// displayOptimizationResults();
 					cb();
 				});
 			});

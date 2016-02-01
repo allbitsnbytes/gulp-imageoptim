@@ -2,23 +2,35 @@
 #
 # Run ImageOptim to optimize batch of images
 
-
 BATCH_IMAGES="${1}"
-JPEGMINI="${2:+ -j}"
+JPEGMINI=""
 IMAGEOPTIM="$( dirname "${BASH_SOURCE[0]}" )/../node_modules/imageoptim-cli/bin/imageOptim"
+LOGFILE="gulp_imageoptim_results.log"
 
+# Check if path to images specified
 if [[ -z "${BATCH_IMAGES}" ]]; then
   printf "No images were specified"
   exit 1
 fi
 
-RESULT="$( ${IMAGEOPTIM} -a -c -q ${JPEGMINI} -d ${BATCH_IMAGES} )"
+# Toggle jpegmini flag
+if [[ "${2}" = "--jpegmini" ]]; then
+  JPEGMINI="-j"
+fi
+
+${IMAGEOPTIM} -a -c -q ${JPEGMINI} -d ${BATCH_IMAGES} > ${LOGFILE}
 EXIT_STATUS=$?
 
-if [[ ${EXIT_STATUS} -eq 0 ]];
-  echo "$( echo ${RESULT} | grep saving: | grep -v TOTAL | cut -d" " -f1,6,7,8 )"
+if [[ ${EXIT_STATUS} -eq 0 ]]; then
+  if [[ -f "${LOGFILE}" ]]; then
+  	cat ${LOGFILE} | grep TOTAL
+  fi
 else
-  echo "$( echo ${RESULT} | grep Error: )"
+  cat ${LOGFILE} | grep Error:
+fi
+
+if [[ -f "${LOGFILE}" ]]; then
+  rm ${LOGFILE}
 fi
 
 exit ${EXIT_STATUS}
