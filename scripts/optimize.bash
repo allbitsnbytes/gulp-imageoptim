@@ -21,6 +21,7 @@ fi
 ${IMAGEOPTIM} -a -c -q ${JPEGMINI} -d ${BATCH_IMAGES} > ${LOGFILE}
 EXIT_STATUS=$?
 
+# Output result
 if [[ ${EXIT_STATUS} -eq 0 ]]; then
   if [[ -f "${LOGFILE}" ]]; then
   	cat ${LOGFILE} | grep TOTAL
@@ -29,6 +30,7 @@ else
   cat ${LOGFILE} | grep Error:
 fi
 
+# Clean up
 if [[ -f "${LOGFILE}" ]]; then
   rm ${LOGFILE}
 fi
