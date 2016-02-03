@@ -94,7 +94,7 @@ function BatchOptimizer() {
 		var batchDir = md5(Date.now());
 		var jpegminiEnabled = options.jpegmini ? '--jpegmini' : '';
 		var scriptParams = path.normalize(batchDir) + ' ' + jpegminiEnabled;
-
+console.log('jpegmini: '+jpegminiEnabled)
 		// Make batch directory
 		fs.mkdirSync(batchDir);
 
@@ -109,7 +109,8 @@ function BatchOptimizer() {
 		// Optimize files
 		exec('bash node_modules/gulp-imageoptim/scripts/optimize.bash ' + scriptParams, function(error, stdout) {
 			var result = {};
-
+console.log('std: '+stdout)
+console.log('error: '+error)
 			if (error === null) {
 				var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
 				var msg = '';
@@ -136,10 +137,7 @@ function BatchOptimizer() {
 					msg: msg
 				};
 			} else {
-				result = {
-					type: 'error',
-					msg: stdout
-				};
+				console.error(error);
 			}
 
 			// Delete batch directory
@@ -201,7 +199,9 @@ function BatchOptimizer() {
 			// Set config optiosn to use for this current optimization session
 			_.assign(options, opts);
 
-			console.log(chalk.yellow.bgBlack('-- Starting Image Optimization --'));
+			if (options.status) {
+				console.log(chalk.yellow.bgBlack('-- Starting Image Optimization --'));
+			}
 
 			return through.obj(function(file, enc, cb) {
 				stream = this;
@@ -229,8 +229,12 @@ function BatchOptimizer() {
 			function(cb) {
 				batchOptimize(batchFiles, options, function(files) {
 					pushFiles(files);
-					console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
 					batchFiles = [];
+
+					if (options.status) {
+						console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
+					}
+
 					cb();
 				});
 			});

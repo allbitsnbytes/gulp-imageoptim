@@ -4,8 +4,17 @@
 
 BATCH_IMAGES="${1}"
 JPEGMINI=""
-IMAGEOPTIM="$( dirname "${BASH_SOURCE[0]}" )/../node_modules/imageoptim-cli/bin/imageOptim"
+CWD="$( dirname "${BASH_SOURCE[0]}" )"
 LOGFILE="gulp_imageoptim_results.log"
+
+if [[ -d ${CWD}/../node_modules/imageoptim-cli ]]; then
+  IMAGEOPTIM="${CWD}/../node_modules/imageoptim-cli/bin/imageOptim"
+elif [[ -d ${CWD}/../../imageoptim-cli ]]; then
+  IMAGEOPTIM="${CWD}/../../imageoptim-cli/bin/imageOptim"
+else
+  echo "Could not find imageoptim-cli library"
+  exit 1
+fi
 
 # Check if path to images specified
 if [[ -z "${BATCH_IMAGES}" ]]; then
@@ -23,7 +32,7 @@ EXIT_STATUS=$?
 
 # Output result
 if [[ ${EXIT_STATUS} -eq 0 ]]; then
-  if [[ -f "${LOGFILE}" ]]; then
+  if [[ -f ${LOGFILE} ]]; then
   	cat ${LOGFILE} | grep TOTAL
   fi
 else
@@ -31,7 +40,7 @@ else
 fi
 
 # Clean up
-if [[ -f "${LOGFILE}" ]]; then
+if [[ -f ${LOGFILE} ]]; then
   rm ${LOGFILE}
 fi
 
