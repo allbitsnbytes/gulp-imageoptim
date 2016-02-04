@@ -42,7 +42,7 @@ Optimize images using ImageOptim-CLI
 To enable JPEGmini support, set the option to true
 
 Type: Boolean
-Defualt: ` false `
+Default: ` false `
 
 
 ### status
@@ -81,7 +81,7 @@ The JPEGmini OS X Apps don't include a command line API, so a real user is simul
 + [OS X Mavericks: Enable access for assistive devices and applications](http://support.apple.com/en-us/HT6026)
 
 
-#### How to I enable JPEGmini in my gulp task?
+#### How do I enable JPEGmini in my gulp task?
 
 ```
 var gulp = require('gulp');
