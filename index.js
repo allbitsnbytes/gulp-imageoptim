@@ -6,7 +6,7 @@ var _				= require('lodash');
 var chalk			= require('chalk');
 var exec			= require('child_process').exec;
 var fs				= require('fs');
-var md5				= require('blueimp-md5').md5;
+var md5				= require('blueimp-md5');
 var path			= require('path');
 var through			= require('through2');
 
@@ -94,8 +94,8 @@ function BatchOptimizer() {
 		var batchDir = md5(Date.now());
 		var jpegminiEnabled = options.jpegmini ? '--jpegmini' : '';
 		var scriptParams = path.normalize(batchDir) + ' ' + jpegminiEnabled;
-console.log('jpegmini: '+jpegminiEnabled)
-		// Make batch directory
+
+        // Make batch directory
 		fs.mkdirSync(batchDir);
 
 		// Add files to optimize to batch directory
@@ -109,8 +109,6 @@ console.log('jpegmini: '+jpegminiEnabled)
 		// Optimize files
 		exec('bash node_modules/gulp-imageoptim/scripts/optimize.bash ' + scriptParams, function(error, stdout) {
 			var result = {};
-console.log('std: '+stdout)
-console.log('error: '+error)
 			if (error === null) {
 				var savings = parseInt(stdout.replace(/.*\(([0-9]+)(\.[0-9]+)?\%\)/, '$1'));
 				var msg = '';

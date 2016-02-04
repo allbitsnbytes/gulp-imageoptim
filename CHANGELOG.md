@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.0.0] - Unreleased
+## [1.0.0] - 2016-2-3
 ### Feature
 - Add support for JPEGMini
 

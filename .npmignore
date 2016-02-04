@@ -4,3 +4,4 @@ test
 .DS_Store
 .jshintrc
 .jshintignore
+vsconfig.js
