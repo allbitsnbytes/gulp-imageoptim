@@ -1,6 +1,6 @@
 {
   "name": "gulp-imageoptim",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gulp plugin to optimize images using imageoptim and jpegmini",
   "author": {
     "name": "Maxwell Berkel",
