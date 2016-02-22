@@ -1,6 +1,6 @@
 {
   "name": "gulp-imageoptim",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Gulp plugin to optimize images using imageoptim and jpegmini",
   "author": {
     "name": "Maxwell Berkel",
@@ -45,11 +45,12 @@
     "mocha-jshint": "^2.3.0"
   },
   "dependencies": {
-    "blueimp-md5": "^2.1.0",
+    "blueimp-md5": "^2.2.0",
     "chalk": "~1.1.1",
-    "file-type": "^3.6.0",
-    "imageoptim-cli": "^1.11.6",
-    "lodash": "^4.2.1",
-    "through2": "^2.0.0"
+    "file-type": "^3.7.0",
+    "imageoptim-cli": "^1.14.8",
+    "lodash": "^4.5.1",
+    "mocha-jshint": "^2.3.1",
+    "through2": "^2.0.1"
   }
 }

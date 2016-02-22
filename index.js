@@ -198,7 +198,7 @@ function BatchOptimizer() {
 			_.assign(options, opts);
 
 			if (options.status) {
-				console.log(chalk.yellow.bgBlack('-- Starting Image Optimization --'));
+				console.log(chalk.yellow.bgBlack('Starting optimization ... this may take a while.'));
 			}
 
 			return through.obj(function(file, enc, cb) {
@@ -230,7 +230,7 @@ function BatchOptimizer() {
 					batchFiles = [];
 
 					if (options.status) {
-						console.log(chalk.yellow.bgBlack('-- Image Optimization Complete --'));
+						console.log(chalk.green.bgBlack('Optimization complete!'));
 					}
 
 					cb();
