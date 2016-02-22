@@ -19,6 +19,7 @@ function BatchOptimizer() {
 	/**
 	 * Default configuration options
 	 * @type {Object}
+	 *
 	 */
 	var config = {};
 
@@ -198,7 +199,7 @@ function BatchOptimizer() {
 			_.assign(options, opts);
 
 			if (options.status) {
-				console.log(chalk.yellow.bgBlack('Starting optimization ... this may take a while.'));
+				console.log(chalk.yellow.bgBlack('Starting image optimization ... this may take a while.'));
 			}
 
 			return through.obj(function(file, enc, cb) {
