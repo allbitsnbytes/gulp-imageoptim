@@ -33,7 +33,7 @@ function BatchOptimizer() {
 	 * Batch size is the number of files to batch optimize
 	 * @type {Int}
 	 */
-	config.batchSize = 100;
+	config.batchSize = 400;
 
 	/**
 	 * Whether to use jpegmini or not
