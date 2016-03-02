@@ -1,5 +1,11 @@
 # Change Log
 
+## [1.0.3] - Unreleased
+### Misc
+- Added some helper functions
+- Removed lodash dependency
+- Updated dependencies
+
 ## [1.0.0] - 2016-2-4
 ### Misc
 - Fixed some typos
