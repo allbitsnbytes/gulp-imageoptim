@@ -255,6 +255,8 @@ function BatchOptimizer () {
 		 */
 		'optimize' : function (opts) {
 			var options = clone (config)
+                        
+			opts = opts || {};
 
 			// Set config optiosn to use for this current optimization session
 			assign (options, opts)
