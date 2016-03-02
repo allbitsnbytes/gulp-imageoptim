@@ -1,10 +1,8 @@
 {
-	"disallowCommaBeforeLineBreak": true,
 	"disallowEmptyBlocks": true,
 	"disallowMixedSpacesAndTabs": true,
 	"disallowMultiLineTernary": true,
 	"disallowMultipleLineStrings": true,
-	"disallowMultipleSpaces": true,
 	"disallowNamedUnassignedFunctions": true,
 	"disallowNestedTernaries": true,
 	"disallowNewlineBeforeBlockStatements": true,
@@ -12,8 +10,7 @@
 		"+",
 		"."
 	],
-	"disallowPaddingNewlinesInBlocks": true,
-	"disallowTrailingComma": true,
+	"disallowSpaceBeforeComma": true,
 	"disallowUnusedParams": true,
 	"jsDoc": {
 		"checkAnnotations": true,
@@ -33,7 +30,7 @@
 		"requireParamDescription": true,
 		"requireReturnDescription": true
 	},
-	"requireAlignedObjectValues": "ignoreFunction",
+	// "requireAlignedObjectValues": "ignoreFunction",
 	"requireBlocksOnNewline": true,
 	"requireCamelCaseOrUpperCaseIdentifiers": true,
 	"requireCapitalizedComments": true,
@@ -45,27 +42,25 @@
 	"requireObjectKeysOnNewLine": true,
 	"requirePaddingNewLinesAfterBlocks": true,
 	"requirePaddingNewLinesBeforeExport": true,
-	"requirePaddingNewlinesBeforeKeywords": true,
+	"requirePaddingNewlinesBeforeKeywords": [
+		"for",
+		"if",
+		"switch",
+		"case",
+		"try",
+		"void",
+		"while",
+		"with",
+		"function"
+	],
 	"requirePaddingNewLinesBeforeLineComments": true,
 	"requireParenthesesAroundArrowParam": true,
 	"requireParenthesesAroundIIFE": true,
 	"requireQuotedKeysInObjects": true,
-	"requireSemicolons": true,
-	"requireSpaceBeforeBinaryOperators": [
-		"=",
-		",",
-		"+",
-		"-",
-		"/",
-		"*",
-		"==",
-		"===",
-		"!=",
-		"!=="
-	],
+	"requireSemicolons": false,
+	"requireSpaceAfterComma": {"allExcept": ["trailing"]},
 	"requireSpaceAfterBinaryOperators": [
 		"=",
-		",",
 		"+",
 		"-",
 		"/",
@@ -99,6 +94,17 @@
 		"-",
 		"!"
 	],
+	"requireSpaceBeforeBinaryOperators": [
+		"=",
+		"+",
+		"-",
+		"/",
+		"*",
+		"==",
+		"===",
+		"!=",
+		"!=="
+	],
 	"requireSpaceBeforeBlockStatements": 1,
 	"requireSpaceBeforeKeywords": [
 		"else",
@@ -122,7 +128,7 @@
 	"validateCommentPosition": {
 		"position": "above"
 	},
-	"validateOrderInObjectKeys": "desc",
+	"validateOrderInObjectKeys": "asc-insensitive",
 	"validateParameterSeparator": ", ",
 	"validateQuoteMarks": {
 		"mark": "'",
